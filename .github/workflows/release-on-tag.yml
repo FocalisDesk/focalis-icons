@@ -22,7 +22,7 @@ jobs:
     - name: Setup Node.js 25.3.0
       uses: actions/setup-node@v4
       with:
-        node-version: '25.3.0'
+        node-version: '25'
         cache: 'npm'
         registry-url: 'https://registry.npmjs.org'
     
