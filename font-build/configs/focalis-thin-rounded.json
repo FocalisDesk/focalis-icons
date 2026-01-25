@@ -1,7 +1,6 @@
 {
   "name": "focalis-thin-rounded",
   "prefix": "fi-tr",
-  "classSelector": ".fi",
   "cssFontFamily": "Focalis Icons Thin Rounded",
   "cssFontWeight": "300",
   "cssFontStyle": "normal",

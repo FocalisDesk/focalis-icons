@@ -1,7 +1,6 @@
 {
   "name": "focalis-regular-rounded",
   "prefix": "fi-rr",
-  "classSelector": ".fi",
   "cssFontFamily": "Focalis Icons Regular Rounded",
   "cssFontWeight": "400",
   "cssFontStyle": "normal",

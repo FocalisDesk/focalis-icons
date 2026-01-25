@@ -17,11 +17,12 @@
     url("{{fontsUrl}}/{{fontName}}.eot?v={{version}}#iefix") format("embedded-opentype");
 }
 
-{{selector}} {
+{{#with selector}}
+{{{this}}} {
   display: inline-block;
-  font-family: "{{fontFamily}}";
-  font-weight: {{fontWeight}};
-  font-style: {{fontStyle}};
+  font-family: "{{../fontFamily}}";
+  font-weight: {{../fontWeight}};
+  font-style: {{../fontStyle}};
   font-size: 24px;
   line-height: 1;
   text-rendering: auto;
@@ -30,9 +31,10 @@
   font-variant: normal;
   text-transform: none;
 }
+{{/with}}
 
 {{#each codepoints}}
-.{{../classSelector}}.{{../prefix}}{{@key}}::before {
+{{../selector}}.{{../prefix}}{{@key}}::before {
   content: "\\{{codepoint this}}";
 }
 {{/each}}
