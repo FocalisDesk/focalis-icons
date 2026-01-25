@@ -12,7 +12,9 @@
   ],
   "scripts": {
     "clean": "rimraf dist",
+    "prebuild:regular": "mkdir -p dist/fonts/regular-rounded dist/css dist/data",
     "build:regular": "fantasticon --config font-build/configs/focalis-regular-rounded.js",
+    "prebuild:thin": "mkdir -p dist/fonts/thin-rounded dist/css dist/data",
     "build:thin": "fantasticon --config font-build/configs/focalis-thin-rounded.js",
     "build:all": "npm run build:regular && npm run build:thin",
     "build": "npm run clean && npm run build:all",

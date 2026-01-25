@@ -16,9 +16,9 @@ module.exports = {
     html: "./font-build/templates/demo.html.hbs"
   },
   pathOptions: {
-    css: "../css/focalis_regular_rounded.css",
-    html: "../demo-regular-rounded.html",
-    json: "../data/focalis-regular-rounded.icons.json"
+    css: "./dist/css/focalis_regular_rounded.css",
+    html: "./dist/demo-regular-rounded.html",
+    json: "./dist/data/focalis-regular-rounded.icons.json"
   },
   codepoints: {},
   formatOptions: {

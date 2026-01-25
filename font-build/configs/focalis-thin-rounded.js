@@ -16,9 +16,9 @@ module.exports = {
     html: "./font-build/templates/demo.html.hbs"
   },
   pathOptions: {
-    css: "../css/focalis_thin_rounded.css",
-    html: "../demo-thin-rounded.html",
-    json: "../data/focalis-thin-rounded.icons.json"
+    css: "./dist/css/focalis_thin_rounded.css",
+    html: "./dist/demo-thin-rounded.html",
+    json: "./dist/data/focalis-thin-rounded.icons.json"
   },
   codepoints: {},
   formatOptions: {
