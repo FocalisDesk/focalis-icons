@@ -1,27 +1,28 @@
 /*!
- * Focalis Icons v{{version}} - {{name}}
+ * Focalis Icons v{{version}} - {{fontName}}
  * (c) {{year}} FocalisDesk
  * License: MIT
  * GitHub: https://github.com/FocalisDesk/focalis-icons
  */
 
 @font-face {
-  font-family: "{{cssFontName}}";
-  font-weight: {{cssFontWeight}};
-  font-style: {{cssFontStyle}};
+  font-family: "{{fontFamily}}";
+  font-weight: {{fontWeight}};
+  font-style: {{fontStyle}};
   font-display: block;
   src: 
-    url("{{fontsUrl}}/{{name}}.woff2?v={{version}}") format("woff2"),
-    url("{{fontsUrl}}/{{name}}.woff?v={{version}}") format("woff"),
-    url("{{fontsUrl}}/{{name}}.ttf?v={{version}}") format("truetype"),
-    url("{{fontsUrl}}/{{name}}.eot?v={{version}}#iefix") format("embedded-opentype");
+    url("{{fontsUrl}}/{{fontName}}.woff2?v={{version}}") format("woff2"),
+    url("{{fontsUrl}}/{{fontName}}.woff?v={{version}}") format("woff"),
+    url("{{fontsUrl}}/{{fontName}}.ttf?v={{version}}") format("truetype"),
+    url("{{fontsUrl}}/{{fontName}}.eot?v={{version}}#iefix") format("embedded-opentype");
 }
 
-{{selector}} {
+{{#with selector}}
+{{{this}}} {
   display: inline-block;
-  font-family: "{{cssFontName}}";
-  font-weight: {{cssFontWeight}};
-  font-style: {{cssFontStyle}};
+  font-family: "{{../fontFamily}}";
+  font-weight: {{../fontWeight}};
+  font-style: {{../fontStyle}};
   font-size: 24px;
   line-height: 1;
   text-rendering: auto;
@@ -30,9 +31,10 @@
   font-variant: normal;
   text-transform: none;
 }
+{{/with}}
 
 {{#each codepoints}}
-.{{../selector}}.{{../prefix}}{{@key}}::before {
+{{../selector}}.{{../prefix}}{{@key}}::before {
   content: "\\{{codepoint this}}";
 }
 {{/each}}

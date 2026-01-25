@@ -1,6 +1,9 @@
 Focalis Icons
 
-https://cdn.jsdelivr.net/npm/@focalisdesk/focalis-icons/logo.svg
+![Build Status](https://github.com/FocalisDesk/focalis-icons/actions/workflows/build.yml/badge.svg)
+![npm version](https://img.shields.io/npm/v/@focalisdesk/focalis-icons)
+![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)
+![Icons Count](https://img.shields.io/badge/icons-8,922-blue)
 
 A comprehensive, professionally designed icon system with multiple visual styles for modern web applications. With 4,461 icons in two distinct styles, Focalis Icons provides everything you need for your design system.
 
