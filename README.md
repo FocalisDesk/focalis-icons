@@ -1,33 +1,72 @@
-Focalis Icons
+<div align="center">
+
+# Focalis Icons
 
 ![Build Status](https://github.com/FocalisDesk/focalis-icons/actions/workflows/build.yml/badge.svg)
 ![npm version](https://img.shields.io/npm/v/@focalisdesk/focalis-icons)
 ![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)
 ![Icons Count](https://img.shields.io/badge/icons-8,922-blue)
 
-A comprehensive, professionally designed icon system with multiple visual styles for modern web applications. With 4,461 icons in two distinct styles, Focalis Icons provides everything you need for your design system.
+**A comprehensive, professionally designed icon system with multiple visual styles for modern web applications.**
 
-✨ Features
+With 4,461 icons in two distinct styles, Focalis Icons provides everything you need for your design system.
 
-· Two Complete Styles: Regular-rounded (medium weight) and thin-rounded (light weight)
-· 4,461 Icons Each: Comprehensive coverage for any use case
-· Web Font Support: Generated as WOFF2, WOFF, TTF, EOT for maximum compatibility
-· CSS Classes: Simple, intuitive class names (fi fi-rr-icon-name)
-· SVG Source Files: Access to original SVG files for customization
-· CDN Ready: Instantly available via jsDelivr CDN
-· npm Package: Easy installation and version management
-· Fully Automated: GitHub Actions for building and releasing
-· MIT Licensed: Free for personal and commercial use
+[Installation](#-quick-start) • [Usage](#-usage-examples) • [Contributing](#-contributing) • [Documentation](#-development)
 
-🎨 Available Styles
+</div>
 
-Style CSS Prefix Stroke Corners Example Count
-Regular Rounded fi-rr- 1.75px Rounded (2px) <i class="fi fi-rr-booking"></i> 4,461
-Thin Rounded fi-tr- 1.25px Rounded (2px) <i class="fi fi-tr-settings"></i> 4,461
+---
 
-🚀 Quick Start
+## Table of Contents
 
-Via CDN (Recommended for prototyping)
+- [Features](#-features)
+- [Available Styles](#-available-styles)
+- [Quick Start](#-quick-start)
+  - [Via CDN](#via-cdn-recommended-for-prototyping)
+  - [Via npm/yarn/pnpm](#via-npmyarnpnpm)
+- [Usage Examples](#-usage-examples)
+  - [Basic Icons](#basic-icons)
+  - [Sizing and Colors](#sizing-and-colors)
+  - [With Text](#with-text)
+  - [Framework Examples](#framework-examples)
+- [Project Structure](#%EF%B8%8F-project-structure)
+- [Development](#-development)
+  - [Adding New Icons](#adding-new-icons)
+  - [Adding a New Style](#adding-a-new-style)
+  - [Building Locally](#building-locally)
+  - [Preview Icons](#preview-icons)
+- [Contributing](#-contributing)
+- [License](#-license)
+- [Links](#-links)
+- [Acknowledgments](#-acknowledgments)
+- [Icon Statistics](#-icon-statistics)
+
+## ✨ Features
+
+- **Two Complete Styles**: Regular-rounded (medium weight) and thin-rounded (light weight)
+- **4,461 Icons Each**: Comprehensive coverage for any use case
+- **Web Font Support**: Generated as WOFF2, WOFF, TTF, EOT for maximum compatibility
+- **CSS Classes**: Simple, intuitive class names (fi fi-rr-icon-name)
+- **SVG Source Files**: Access to original SVG files for customization
+- **CDN Ready**: Instantly available via jsDelivr CDN
+- **npm Package**: Easy installation and version management
+- **Fully Automated**: GitHub Actions for building and releasing
+- **MIT Licensed**: Free for personal and commercial use
+
+---
+
+## 🎨 Available Styles
+
+| Style | CSS Prefix | Stroke | Corners | Example | Count |
+|-------|------------|--------|---------|---------|-------|
+| **Regular Rounded** | `fi-rr-` | 1.75px | Rounded (2px) | `<i class="fi fi-rr-booking"></i>` | 4,461 |
+| **Thin Rounded** | `fi-tr-` | 1.25px | Rounded (2px) | `<i class="fi fi-tr-settings"></i>` | 4,461 |
+
+---
+
+## 🚀 Quick Start
+
+### Via CDN (Recommended for prototyping)
 
 ```html
 <!-- Regular Rounded Icons -->
@@ -43,7 +82,7 @@ Via CDN (Recommended for prototyping)
 <i class="fi fi-tr-settings"></i>  <!-- Thin rounded settings icon -->
 ```
 
-Via npm/yarn/pnpm
+### Via npm/yarn/pnpm
 
 ```bash
 # npm
@@ -70,9 +109,11 @@ import '@focalisdesk/focalis-icons/dist/css/focalis_thin_rounded.css';
 <i class="fi fi-tr-bell"></i>
 ```
 
-📖 Usage Examples
+---
 
-Basic Icons
+## 📖 Usage Examples
+
+### Basic Icons
 
 ```html
 <!-- Regular rounded -->
@@ -82,13 +123,13 @@ Basic Icons
 <i class="fi fi-rr-settings"></i>
 
 <!-- Thin rounded -->
-<i class="fi tr-home"></i>
+<i class="fi fi-tr-home"></i>
 <i class="fi fi-tr-search"></i>
 <i class="fi fi-tr-user"></i>
 <i class="fi fi-tr-settings"></i>
 ```
 
-Sizing and Colors
+### Sizing and Colors
 
 Icons inherit the font-size and color of their parent element:
 
@@ -104,7 +145,7 @@ Icons inherit the font-size and color of their parent element:
 <i class="fi fi-rr-check" style="color: #10b981;"></i>
 ```
 
-With Text
+### With Text
 
 ```html
 <button>
@@ -120,9 +161,9 @@ With Text
 </div>
 ```
 
-Framework Examples
+### Framework Examples
 
-React:
+#### React:
 
 ```jsx
 function IconButton({ icon, label }) {
@@ -138,7 +179,7 @@ function IconButton({ icon, label }) {
 <IconButton icon="download" label="Download" />
 ```
 
-Vue:
+#### Vue:
 
 ```vue
 <template>
@@ -149,7 +190,7 @@ Vue:
 </template>
 ```
 
-Svelte:
+#### Svelte:
 
 ```svelte
 <button class="icon-button">
@@ -158,7 +199,9 @@ Svelte:
 </button>
 ```
 
-🏗️ Project Structure
+---
+
+## 🏗️ Project Structure
 
 ```
 focalis-icons/
@@ -217,32 +260,36 @@ focalis-icons/
 
 ```
 
-🔧 Development
+---
 
-Adding New Icons
+## 🔧 Development
+
+### Adding New Icons
 
 1. Place SVG files in the appropriate style directory:
-   ```
+   ```bash
    src/icons/regular-rounded/new-icon.svg
    src/icons/thin-rounded/new-icon.svg
    ```
-2. Follow SVG guidelines (from src/README.md):
-   · Use consistent stroke width for the style
-   · Use 2px corner radius for rounded styles
-   · Optimize SVG files (remove metadata, use single path when possible)
-   · Use kebab-case for filenames (e.g., user-profile.svg)
+
+2. Follow SVG guidelines (from `src/README.md`):
+   - Use consistent stroke width for the style
+   - Use 2px corner radius for rounded styles
+   - Optimize SVG files (remove metadata, use single path when possible)
+   - Use kebab-case for filenames (e.g., `user-profile.svg`)
+
 3. Rebuild fonts:
    ```bash
    npm run build:all
    ```
 
-Adding a New Style
+### Adding a New Style
 
 1. Create SVG directory:
    ```bash
    mkdir -p src/icons/new-style
    ```
-2. Add configuration (font-build/configs/focalis-new-style.json):
+2. Add configuration (`font-build/configs/focalis-new-style.json`):
    ```json
    {
      "name": "focalis-new-style",
@@ -266,22 +313,26 @@ Adding a New Style
      }
    }
    ```
-3. Update package.json scripts:
+
+3. Update `package.json` scripts:
    ```json
    "build:new-style": "fantasticon font-build/configs/focalis-new-style.json",
    "build:all": "npm run build:regular && npm run build:thin && npm run build:new-style"
    ```
-4. Update CSS minification in package.json:
+
+4. Update CSS minification in `package.json`:
    ```json
    "minify:css": "... && cleancss -O2 --format breakWith=lf -o dist/css/focalis_new_style.min.css dist/css/focalis_new_style.css"
    ```
-5. Add style to manifest.json (follow existing structure)
+
+5. Add style to `manifest.json` (follow existing structure)
+
 6. Build the new style:
    ```bash
    npm run build:new-style
    ```
 
-Building Locally
+### Building Locally
 
 ```bash
 # Clone the repository
@@ -302,27 +353,29 @@ npm run build:thin
 npm run clean
 ```
 
-Preview Icons
+### Preview Icons
 
 After building, open the demo files:
 
-· dist/demo-regular-rounded.html - Regular rounded icons
-· dist/demo-thin-rounded.html - Thin rounded icons
+- `dist/demo-regular-rounded.html` - Regular rounded icons
+- `dist/demo-thin-rounded.html` - Thin rounded icons
 
-🤝 Contributing
+---
+
+## 🤝 Contributing
 
 We welcome contributions! Here's how you can help:
 
-Reporting Issues
+### Reporting Issues
 
-1. Check if the issue already exists in GitHub Issues
+1. Check if the issue already exists in [GitHub Issues](https://github.com/FocalisDesk/focalis-icons/issues)
 2. Provide detailed information:
-   · Icon name(s) affected
-   · Style (regular-rounded/thin-rounded)
-   · Browser and version
-   · Screenshots if applicable
+   - Icon name(s) affected
+   - Style (regular-rounded/thin-rounded)
+   - Browser and version
+   - Screenshots if applicable
 
-Submitting Pull Requests
+### Submitting Pull Requests
 
 1. Fork the repository
 2. Create a feature branch:
@@ -330,7 +383,7 @@ Submitting Pull Requests
    git checkout -b feature/add-new-icons
    ```
 3. Add your icons to both style directories (maintain consistency)
-4. Follow SVG guidelines in src/README.md
+4. Follow SVG guidelines in `src/README.md`
 5. Test your changes:
    ```bash
    npm run build:all
@@ -342,54 +395,69 @@ Submitting Pull Requests
    ```
 8. Push to your fork and create a Pull Request
 
-Contribution Guidelines
+### Contribution Guidelines
 
-· Maintain consistent stroke width within each style
-· Use 2px corner radius for rounded styles
-· Optimize SVG files (remove unnecessary metadata)
-· Test icons in both styles for visual consistency
-· Update documentation for new features
+- Maintain consistent stroke width within each style
+- Use 2px corner radius for rounded styles
+- Optimize SVG files (remove unnecessary metadata)
+- Test icons in both styles for visual consistency
+- Update documentation for new features
 
-Icon Request Process
+### Icon Request Process
 
 1. Check existing icons to avoid duplicates
 2. Describe use case for the new icon
 3. Provide reference images if possible
 4. Consider icon clarity at small sizes (16-24px)
 
-📄 License
+---
 
-Focalis Icons is released under the MIT License.
+## 📄 License
 
-· ✅ Free for personal and commercial use
-· ✅ No attribution required (though appreciated)
-· ✅ Modify and distribute freely
-· ✅ Use in proprietary software
-· ✅ Sublicense
+Focalis Icons is released under the [MIT License](LICENSE).
 
-🔗 Links
-
-· GitHub: https://github.com/FocalisDesk/focalis-icons
-· npm: https://www.npmjs.com/package/@focalisdesk/focalis-icons
-· CDN: https://cdn.jsdelivr.net/npm/@focalisdesk/focalis-icons/
-· Issue Tracker: https://github.com/FocalisDesk/focalis-icons/issues
-· Changelog: https://github.com/FocalisDesk/focalis-icons/releases
-
-🙏 Acknowledgments
-
-· Built with Fantasticon
-· Inspired by modern design systems
-· Thanks to all contributors
-
-📊 Icon Statistics
-
-Metric Regular Rounded Thin Rounded
-Total Icons 4,461 4,461
-Categories 45+ 45+
-Average File Size (SVG) ~1.2KB ~1.1KB
-CSS File Size (minified) ~150KB ~150KB
-Font File Size (woff2) ~120KB ~115KB
+- ✅ Free for personal and commercial use
+- ✅ No attribution required (though appreciated)
+- ✅ Modify and distribute freely
+- ✅ Use in proprietary software
+- ✅ Sublicense
 
 ---
 
-Focalis Icons is maintained by FocalisDesk. For questions, suggestions, or support, please open an issue on GitHub.
+## 🔗 Links
+
+- **GitHub**: [https://github.com/FocalisDesk/focalis-icons](https://github.com/FocalisDesk/focalis-icons)
+- **npm**: [https://www.npmjs.com/package/@focalisdesk/focalis-icons](https://www.npmjs.com/package/@focalisdesk/focalis-icons)
+- **CDN**: [https://cdn.jsdelivr.net/npm/@focalisdesk/focalis-icons/](https://cdn.jsdelivr.net/npm/@focalisdesk/focalis-icons/)
+- **Issue Tracker**: [https://github.com/FocalisDesk/focalis-icons/issues](https://github.com/FocalisDesk/focalis-icons/issues)
+- **Changelog**: [https://github.com/FocalisDesk/focalis-icons/releases](https://github.com/FocalisDesk/focalis-icons/releases)
+
+---
+
+## 🙏 Acknowledgments
+
+- Built with [Fantasticon](https://github.com/tancredi/fantasticon)
+- Inspired by modern design systems
+- Thanks to all contributors
+
+---
+
+## 📊 Icon Statistics
+
+| Metric | Regular Rounded | Thin Rounded |
+|--------|-----------------|--------------|
+| **Total Icons** | 4,461 | 4,461 |
+| **Categories** | 45+ | 45+ |
+| **Average File Size (SVG)** | ~1.2KB | ~1.1KB |
+| **CSS File Size (minified)** | ~150KB | ~150KB |
+| **Font File Size (woff2)** | ~120KB | ~115KB |
+
+---
+
+<div align="center">
+
+**Focalis Icons** is maintained by [FocalisDesk](https://github.com/FocalisDesk)
+
+For questions, suggestions, or support, please [open an issue](https://github.com/FocalisDesk/focalis-icons/issues) on GitHub.
+
+</div>
