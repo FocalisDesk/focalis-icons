@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Focalis Icons - {{fontName}} Demo</title>
+    <title>Focalis Icons - {{name}} Demo</title>
     <link rel="stylesheet" href="{{cssPath}}" />
     <style>
         * {
@@ -256,16 +256,16 @@
     <div class="container">
         <header>
             <h1>Focalis Icons</h1>
-            <div class="subtitle">{{fontName}} - {{iconsCount}} icons</div>
+            <div class="subtitle">{{name}} - {{iconsCount}} icons</div>
             
             <div class="meta">
                 <div class="meta-item">
                     <span>Font family:</span>
-                    <strong>"{{fontFamily}}"</strong>
+                    <strong>"{{cssFontName}}"</strong>
                 </div>
                 <div class="meta-item">
                     <span>Font weight:</span>
-                    <strong>{{fontWeight}}</strong>
+                    <strong>{{cssFontWeight}}</strong>
                 </div>
                 <div class="meta-item">
                     <span>CSS prefix:</span>
@@ -273,14 +273,14 @@
                 </div>
                 <div class="meta-item">
                     <span>Base class:</span>
-                    <div class="badge">{{selector}}</div>
+                    <div class="badge">{{cssSelector}}</div>
                 </div>
             </div>
         </header>
 
         <div class="search-container">
             <div class="search-icon">
-                <i class="{{selector}} {{prefix}}search"></i>
+                <i class="{{cssSelector}} {{prefix}}search"></i>
             </div>
             <input 
                 type="text" 
@@ -311,17 +311,17 @@
             {{#each codepoints}}
             <div class="icon-item" data-name="{{@key}}">
                 <div class="icon-preview">
-                    <i class="{{../selector}} {{../prefix}}{{@key}}"></i>
+                    <i class="{{../cssSelector}} {{../prefix}}{{@key}}"></i>
                 </div>
                 <div class="icon-name">{{@key}}</div>
-                <div class="icon-class">{{../selector}} {{../prefix}}{{@key}}</div>
+                <div class="icon-class">{{../cssSelector}} {{../prefix}}{{@key}}</div>
             </div>
             {{/each}}
         </div>
 
         <footer>
             <p>
-                Made with <i class="{{selector}} {{prefix}}heart"></i> by 
+                Made with <i class="{{cssSelector}} {{prefix}}heart"></i> by 
                 <a href="https://focalisdesk.com" target="_blank">FocalisDesk</a>
             </p>
             <p>
@@ -368,7 +368,7 @@
                     const noResultsDiv = document.createElement('div');
                     noResultsDiv.className = 'no-results';
                     noResultsDiv.innerHTML = `
-                        <i class="{{selector}} {{prefix}}search" style="font-size: 48px; margin-bottom: 16px;"></i>
+                        <i class="{{cssSelector}} {{prefix}}search" style="font-size: 48px; margin-bottom: 16px;"></i>
                         <h3>No icons found</h3>
                         <p>Try searching with different terms</p>
                     `;
