@@ -15,6 +15,9 @@ module.exports = {
     css: "./font-build/templates/css.hbs",
     html: "./font-build/templates/demo.html.hbs"
   },
+  // Note: pathOptions are relative to the project root (where fantasticon is executed),
+  // not relative to outputDir. This differs from some examples but is required for
+  // Fantasticon 4.1.0 when using --config flag with absolute config paths.
   pathOptions: {
     css: "./dist/css/focalis_regular_rounded.css",
     html: "./dist/demo-regular-rounded.html",

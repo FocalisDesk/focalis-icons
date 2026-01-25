@@ -185,7 +185,7 @@ jobs:
             echo "❌ ERROR: $css is empty"
             exit 1
           fi
-          SIZE=$(stat -f%z "$css" 2>/dev/null || stat -c%s "$css" 2>/dev/null)
+          SIZE=$(wc -c < "$css")
           echo "✅ $css: ${SIZE} bytes"
         done
         
