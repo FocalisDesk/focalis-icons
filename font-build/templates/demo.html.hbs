@@ -261,11 +261,11 @@
             <div class="meta">
                 <div class="meta-item">
                     <span>Font family:</span>
-                    <strong>"{{cssFontName}}"</strong>
+                    <strong>"{{#if formatOptions.ttf.fontName}}{{formatOptions.ttf.fontName}}{{else}}{{name}}{{/if}}"</strong>
                 </div>
                 <div class="meta-item">
                     <span>Font weight:</span>
-                    <strong>{{cssFontWeight}}</strong>
+                    <strong>{{#if formatOptions.ttf.fontWeight}}{{formatOptions.ttf.fontWeight}}{{else}}400{{/if}}</strong>
                 </div>
                 <div class="meta-item">
                     <span>CSS prefix:</span>
@@ -342,6 +342,22 @@
             const iconSizeInput = document.getElementById('iconSize');
             const colorPicker = document.getElementById('colorPicker');
             
+            // Error handling for missing elements
+            if (!searchInput || !iconsContainer || !resultsCount || !sizeSlider || !iconSizeInput || !colorPicker) {
+                console.error('Focalis Icons Demo: Required DOM elements not found. Please ensure the HTML structure is intact.');
+                return;
+            }
+            
+            // Verify that CSS is loaded by checking if icons have font-family applied
+            const testIcon = document.querySelector('.icon-preview i');
+            if (testIcon) {
+                const computedStyle = window.getComputedStyle(testIcon);
+                const fontFamily = computedStyle.fontFamily;
+                if (!fontFamily || fontFamily === 'serif' || fontFamily === 'sans-serif') {
+                    console.warn('Focalis Icons Demo: Icon font may not be loaded. Verify CSS file path.');
+                }
+            }
+            
             let currentSize = 48;
             let currentColor = '#111827';
             
@@ -411,20 +427,34 @@
             iconItems.forEach(item => {
                 item.addEventListener('click', function() {
                     const iconClass = this.querySelector('.icon-class').textContent;
-                    navigator.clipboard.writeText(iconClass).then(() => {
-                        const originalText = this.querySelector('.icon-name').textContent;
-                        this.querySelector('.icon-name').textContent = 'Copied!';
-                        this.querySelector('.icon-name').style.background = '#d1fae5';
-                        this.querySelector('.icon-name').style.color = '#065f46';
-                        
-                        setTimeout(() => {
-                            this.querySelector('.icon-name').textContent = originalText;
-                            this.querySelector('.icon-name').style.background = '#f3f4f6';
-                            this.querySelector('.icon-name').style.color = '#374151';
-                        }, 1500);
-                    });
+                    
+                    // Use modern clipboard API with fallback
+                    if (navigator.clipboard && navigator.clipboard.writeText) {
+                        navigator.clipboard.writeText(iconClass).then(() => {
+                            showCopyFeedback(this);
+                        }).catch(err => {
+                            console.error('Focalis Icons Demo: Failed to copy to clipboard:', err);
+                        });
+                    } else {
+                        // Fallback for older browsers
+                        console.warn('Focalis Icons Demo: Clipboard API not available');
+                        showCopyFeedback(this);
+                    }
                 });
             });
+            
+            function showCopyFeedback(element) {
+                const originalText = element.querySelector('.icon-name').textContent;
+                element.querySelector('.icon-name').textContent = 'Copied!';
+                element.querySelector('.icon-name').style.background = '#d1fae5';
+                element.querySelector('.icon-name').style.color = '#065f46';
+                
+                setTimeout(() => {
+                    element.querySelector('.icon-name').textContent = originalText;
+                    element.querySelector('.icon-name').style.background = '#f3f4f6';
+                    element.querySelector('.icon-name').style.color = '#374151';
+                }, 1500);
+            }
             
             // Initialize
             updateIconSize(48);

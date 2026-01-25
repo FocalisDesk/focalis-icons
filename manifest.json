@@ -62,6 +62,7 @@
       },
       "dataFile": "focalis-regular-rounded.icons.json",
       "demoFile": "demo-regular-rounded.html",
+      "lastUpdated": "2026-01-25T19:26:44.312Z",
       "sortOrder": 1
     },
     "thin-rounded": {
@@ -88,6 +89,7 @@
       },
       "dataFile": "focalis-thin-rounded.icons.json",
       "demoFile": "demo-thin-rounded.html",
+      "lastUpdated": "2026-01-25T19:26:44.312Z",
       "sortOrder": 2
     }
   },
