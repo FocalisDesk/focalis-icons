@@ -1,0 +1,214 @@
+name: Create Release on Tag
+
+on:
+  push:
+    tags:
+      - 'v*.*.*'
+
+jobs:
+  build-and-release:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+      packages: write
+    
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v4
+      with:
+        fetch-depth: 0
+        fetch-tags: true
+    
+    - name: Setup Node.js 25.3.0
+      uses: actions/setup-node@v4
+      with:
+        node-version: '25.3.0'
+        cache: 'npm'
+        registry-url: 'https://registry.npmjs.org'
+    
+    - name: Verify tag format
+      run: |
+        TAG_NAME="${GITHUB_REF#refs/tags/}"
+        echo "Tag: $TAG_NAME"
+        
+        # Validate tag format (semantic versioning)
+        if [[ ! $TAG_NAME =~ ^v[0-9]+\.[0-9]+\.[0-9]+(-[0-9A-Za-z.-]+)?(\+[0-9A-Za-z.-]+)?$ ]]; then
+          echo "❌ Invalid tag format. Expected vX.Y.Z (semantic versioning)"
+          exit 1
+        fi
+        
+        # Extract version without 'v' prefix
+        VERSION="${TAG_NAME#v}"
+        echo "VERSION=$VERSION" >> $GITHUB_ENV
+        echo "TAG_NAME=$TAG_NAME" >> $GITHUB_ENV
+        
+        # Update package.json version
+        npm version $VERSION --no-git-tag-version --allow-same-version
+        
+        # Update manifest.json version
+        if [ -f "manifest.json" ]; then
+          jq --arg version "$VERSION" '.project.version = $version' manifest.json > manifest.tmp.json
+          mv manifest.tmp.json manifest.json
+        fi
+        
+        echo "✅ Updated version to $VERSION"
+    
+    - name: Install dependencies
+      run: npm ci
+    
+    - name: Build all icon fonts
+      run: npm run build
+    
+    - name: Verify build output
+      run: |
+        echo "🔍 Verifying build output for release..."
+        
+        REQUIRED_FILES=(
+          "dist/fonts/regular-rounded/focalis-regular-rounded.woff2"
+          "dist/fonts/regular-rounded/focalis-regular-rounded.woff"
+          "dist/fonts/regular-rounded/focalis-regular-rounded.ttf"
+          "dist/fonts/regular-rounded/focalis-regular-rounded.eot"
+          "dist/fonts/thin-rounded/focalis-thin-rounded.woff2"
+          "dist/fonts/thin-rounded/focalis-thin-rounded.woff"
+          "dist/fonts/thin-rounded/focalis-thin-rounded.ttf"
+          "dist/fonts/thin-rounded/focalis-thin-rounded.eot"
+          "dist/css/focalis_regular_rounded.css"
+          "dist/css/focalis_regular_rounded.min.css"
+          "dist/css/focalis_thin_rounded.css"
+          "dist/css/focalis_thin_rounded.min.css"
+          "dist/data/focalis-regular-rounded.icons.json"
+          "dist/data/focalis-thin-rounded.icons.json"
+          "dist/demo-regular-rounded.html"
+          "dist/demo-thin-rounded.html"
+          "manifest.json"
+        )
+        
+        for file in "${REQUIRED_FILES[@]}"; do
+          if [ ! -f "$file" ]; then
+            echo "❌ Missing required file: $file"
+            exit 1
+          fi
+        done
+        
+        # Count icons
+        REGULAR_COUNT=$(jq 'length' dist/data/focalis-regular-rounded.icons.json)
+        THIN_COUNT=$(jq 'length' dist/data/focalis-thin-rounded.icons.json)
+        
+        echo "✅ Build verification passed"
+        echo "📊 Icon counts:"
+        echo "   Regular-rounded: $REGULAR_COUNT icons"
+        echo "   Thin-rounded: $THIN_COUNT icons"
+        
+        # Generate file sizes for release notes
+        echo "FILE_SIZES<<EOF" >> $GITHUB_ENV
+        echo "## File Sizes" >> $GITHUB_ENV
+        echo "| File | Size |" >> $GITHUB_ENV
+        echo "|------|------|" >> $GITHUB_ENV
+        find dist -type f -name "*.woff2" -o -name "*.woff" -o -name "*.ttf" -o -name "*.eot" | sort | while read file; do
+          size=$(ls -lh "$file" | awk '{print $5}')
+          filename=$(basename "$file")
+          echo "| $filename | $size |" >> $GITHUB_ENV
+        done
+        echo "EOF" >> $GITHUB_ENV
+    
+    - name: Create distribution archive
+      run: |
+        TAG_NAME="${GITHUB_REF#refs/tags/}"
+        ARCHIVE_NAME="focalis-icons-$TAG_NAME"
+        
+        # Create a clean archive with dist and manifest
+        mkdir -p $ARCHIVE_NAME
+        cp -r dist/* $ARCHIVE_NAME/
+        cp manifest.json $ARCHIVE_NAME/
+        cp README.md $ARCHIVE_NAME/
+        cp LICENSE $ARCHIVE_NAME/
+        
+        # Create zip and tar.gz archives
+        zip -r "${ARCHIVE_NAME}.zip" $ARCHIVE_NAME
+        tar -czvf "${ARCHIVE_NAME}.tar.gz" $ARCHIVE_NAME
+        
+        echo "ARCHIVE_NAME=$ARCHIVE_NAME" >> $GITHUB_ENV
+        ls -lh *.zip *.tar.gz
+    
+    - name: Generate release notes
+      run: |
+        TAG_NAME="${GITHUB_REF#refs/tags/}"
+        VERSION="${TAG_NAME#v}"
+        PREV_TAG=$(git describe --tags --abbrev=0 "$TAG_NAME"^ 2>/dev/null || echo "")
+        
+        echo "## Focalis Icons $TAG_NAME" > release_notes.md
+        echo "" >> release_notes.md
+        
+        if [ -n "$PREV_TAG" ]; then
+          echo "### Changes since $PREV_TAG" >> release_notes.md
+          echo "" >> release_notes.md
+          git log --pretty=format:"- %s" "$PREV_TAG".."$TAG_NAME" --no-merges >> release_notes.md
+          echo "" >> release_notes.md
+        else
+          echo "### Initial Release" >> release_notes.md
+          echo "" >> release_notes.md
+        fi
+        
+        # Add CDN usage information
+        echo "### CDN Usage" >> release_notes.md
+        echo "" >> release_notes.md
+        echo "Via jsDelivr:" >> release_notes.md
+        echo '```html' >> release_notes.md
+        echo "<!-- Regular Rounded Icons -->" >> release_notes.md
+        echo "<link rel=\"stylesheet\" href=\"https://cdn.jsdelivr.net/npm/@focalisdesk/focalis-icons@$VERSION/dist/css/focalis_regular_rounded.min.css\">" >> release_notes.md
+        echo "<i class=\"fi fi-rr-booking\"></i>" >> release_notes.md
+        echo "" >> release_notes.md
+        echo "<!-- Thin Rounded Icons -->" >> release_notes.md
+        echo "<link rel=\"stylesheet\" href=\"https://cdn.jsdelivr.net/npm/@focalisdesk/focalis-icons@$VERSION/dist/css/focalis_thin_rounded.min.css\">" >> release_notes.md
+        echo "<i class=\"fi fi-tr-settings\"></i>" >> release_notes.md
+        echo '```' >> release_notes.md
+        echo "" >> release_notes.md
+        
+        # Add file sizes
+        echo "$FILE_SIZES" >> release_notes.md
+        echo "" >> release_notes.md
+        
+        # Add installation instructions
+        echo "### Installation" >> release_notes.md
+        echo "" >> release_notes.md
+        echo "**NPM:**" >> release_notes.md
+        echo '```bash' >> release_notes.md
+        echo "npm install @focalisdesk/focalis-icons@$VERSION" >> release_notes.md
+        echo '```' >> release_notes.md
+        echo "" >> release_notes.md
+        
+        # Add statistics
+        REGULAR_COUNT=$(jq 'length' dist/data/focalis-regular-rounded.icons.json)
+        THIN_COUNT=$(jq 'length' dist/data/focalis-thin-rounded.icons.json)
+        
+        echo "### Statistics" >> release_notes.md
+        echo "" >> release_notes.md
+        echo "- Regular Rounded Icons: $REGULAR_COUNT" >> release_notes.md
+        echo "- Thin Rounded Icons: $THIN_COUNT" >> release_notes.md
+        echo "" >> release_notes.md
+        
+        cat release_notes.md
+    
+    - name: Create GitHub Release
+      uses: softprops/action-gh-release@v2
+      with:
+        name: "Focalis Icons ${{ env.TAG_NAME }}"
+        body_path: release_notes.md
+        draft: false
+        prerelease: ${{ contains(env.TAG_NAME, '-') }}
+        files: |
+          ${{ env.ARCHIVE_NAME }}.zip
+          ${{ env.ARCHIVE_NAME }}.tar.gz
+          dist/css/focalis_regular_rounded.min.css
+          dist/css/focalis_thin_rounded.min.css
+          dist/data/focalis-regular-rounded.icons.json
+          dist/data/focalis-thin-rounded.icons.json
+          manifest.json
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+    
+    - name: Publish to npm
+      if: ${{ !contains(env.TAG_NAME, '-') }}
+      run: npm publish --access public
+      env:
+        NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}

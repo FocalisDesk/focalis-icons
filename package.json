@@ -1,0 +1,64 @@
+{
+  "name": "@focalisdesk/focalis-icons",
+  "version": "1.0.0",
+  "description": "A beautiful set of SVG icons in two styles: regular-rounded and thin-rounded. Easy to use as web fonts or SVGs with CDN support.",
+  "main": "dist/css/focalis_regular_rounded.css",
+  "style": "dist/css/focalis_regular_rounded.css",
+  "files": [
+    "dist",
+    "manifest.json",
+    "README.md",
+    "LICENSE"
+  ],
+  "scripts": {
+    "clean": "rimraf dist",
+    "build:regular": "fantasticon font-build/configs/focalis-regular-rounded.json",
+    "build:thin": "fantasticon font-build/configs/focalis-thin-rounded.json",
+    "build:all": "npm run build:regular && npm run build:thin",
+    "build": "npm run clean && npm run build:all",
+    "minify:css": "cleancss -O2 --format breakWith=lf -o dist/css/focalis_regular_rounded.min.css dist/css/focalis_regular_rounded.css && cleancss -O2 --format breakWith=lf -o dist/css/focalis_thin_rounded.min.css dist/css/focalis_thin_rounded.css",
+    "postbuild": "npm run minify:css",
+    "prepublishOnly": "npm run build",
+    "test": "echo \"No tests specified\" && exit 0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/FocalisDesk/focalis-icons.git"
+  },
+  "keywords": [
+    "icons",
+    "svg",
+    "font",
+    "icon-font",
+    "web-font",
+    "regular-rounded",
+    "thin-rounded",
+    "focalis",
+    "ui",
+    "design-system"
+  ],
+  "author": "FocalisDesk",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/FocalisDesk/focalis-icons/issues"
+  },
+  "homepage": "https://github.com/FocalisDesk/focalis-icons#readme",
+  "engines": {
+    "node": ">=25.3.0",
+    "npm": ">=11.6.2"
+  },
+  "devDependencies": {
+    "fantasticon": "4.1.0",
+    "clean-css-cli": "^5.6.3",
+    "rimraf": "^5.0.5"
+  },
+  "publishConfig": {
+    "access": "public"
+  },
+  "browserslist": [
+    "> 0.5%",
+    "last 2 versions",
+    "Firefox ESR",
+    "not dead"
+  ]
+}

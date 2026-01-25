@@ -1,0 +1,6 @@
+<svg id="surprise_Layer_1" viewBox="0 0 24 24" fill="currentColor" width="32" height="32" data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <title>surprise</title>
+    <path d="M12 24C5.383 24 0 18.617 0 12S5.383 0 12 0 24 5.383 24 12 18.617 24 12 24zM12 1C5.935 1 1 5.935 1 12s4.935 11 11 11 11-4.935 11-11S18.065 1 12 1zM12 21c-2.206 0-4-1.794-4-4s1.794-4 4-4 4 1.794 4 4-1.794 4-4 4zM12 14c-1.654 0-3 1.346-3 3s1.346 3 3 3 3-1.346 3-3-1.346-3-3-3z" />
+    <circle cx="8" cy="10" r="1" />
+    <circle cx="16" cy="10" r="1" />
+</svg>

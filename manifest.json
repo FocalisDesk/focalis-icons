@@ -1,0 +1,176 @@
+{
+  "$schema": "./node_modules/focalis-icons/schema/manifest.schema.json",
+  "project": {
+    "name": "Focalis Icons",
+    "version": "1.0.0",
+    "description": "A comprehensive icon system with multiple visual styles for modern interfaces",
+    "license": "MIT",
+    "repository": {
+      "type": "git",
+      "url": "https://github.com/FocalisDesk/focalis-icons.git"
+    },
+    "homepage": "https://github.com/FocalisDesk/focalis-icons#readme",
+    "keywords": [
+      "icons",
+      "svg",
+      "font",
+      "icon-font",
+      "design-system",
+      "ui",
+      "focalis"
+    ]
+  },
+  "build": {
+    "tool": "Fantasticon",
+    "toolVersion": "4.1.0",
+    "nodeVersion": ">=25.3.0",
+    "templates": {
+      "css": "font-build/templates/css.hbs",
+      "demo": "font-build/templates/demo.html.hbs"
+    },
+    "configs": "font-build/configs/",
+    "source": "src/icons/",
+    "output": {
+      "fonts": "dist/fonts/",
+      "css": "dist/css/",
+      "data": "dist/data/",
+      "demo": "dist/"
+    }
+  },
+  "styles": {
+    "regular-rounded": {
+      "id": "regular-rounded",
+      "name": "Regular Rounded",
+      "description": "Medium stroke weight with rounded corners - balanced and friendly",
+      "cssPrefix": "fi-rr-",
+      "cssFamily": "Focalis Icons Regular Rounded",
+      "cssWeight": "400",
+      "cssStyle": "normal",
+      "baseClass": ".fi",
+      "strokeWidth": "1.75px",
+      "cornerRadius": "2px",
+      "iconCount": 4461,
+      "fontFiles": [
+        "focalis-regular-rounded.woff2",
+        "focalis-regular-rounded.woff",
+        "focalis-regular-rounded.ttf",
+        "focalis-regular-rounded.eot"
+      ],
+      "cssFiles": {
+        "standard": "focalis_regular_rounded.css",
+        "minified": "focalis_regular_rounded.min.css"
+      },
+      "dataFile": "focalis-regular-rounded.icons.json",
+      "demoFile": "demo-regular-rounded.html",
+      "sortOrder": 1
+    },
+    "thin-rounded": {
+      "id": "thin-rounded",
+      "name": "Thin Rounded",
+      "description": "Light stroke weight with rounded corners - elegant and modern",
+      "cssPrefix": "fi-tr-",
+      "cssFamily": "Focalis Icons Thin Rounded",
+      "cssWeight": "300",
+      "cssStyle": "normal",
+      "baseClass": ".fi",
+      "strokeWidth": "1.25px",
+      "cornerRadius": "2px",
+      "iconCount": 4461,
+      "fontFiles": [
+        "focalis-thin-rounded.woff2",
+        "focalis-thin-rounded.woff",
+        "focalis-thin-rounded.ttf",
+        "focalis-thin-rounded.eot"
+      ],
+      "cssFiles": {
+        "standard": "focalis_thin_rounded.css",
+        "minified": "focalis_thin_rounded.min.css"
+      },
+      "dataFile": "focalis-thin-rounded.icons.json",
+      "demoFile": "demo-thin-rounded.html",
+      "sortOrder": 2
+    }
+  },
+  "cdn": {
+    "provider": "jsDelivr",
+    "baseUrl": "https://cdn.jsdelivr.net/npm/@focalisdesk/focalis-icons",
+    "usage": {
+      "regular-rounded": {
+        "css": "https://cdn.jsdelivr.net/npm/@focalisdesk/focalis-icons@1.0.0/dist/css/focalis_regular_rounded.min.css",
+        "html": "<link rel=\"stylesheet\" href=\"https://cdn.jsdelivr.net/npm/@focalisdesk/focalis-icons@1.0.0/dist/css/focalis_regular_rounded.min.css\">",
+        "example": "<i class=\"fi fi-rr-booking\"></i>"
+      },
+      "thin-rounded": {
+        "css": "https://cdn.jsdelivr.net/npm/@focalisdesk/focalis-icons@1.0.0/dist/css/focalis_thin_rounded.min.css",
+        "html": "<link rel=\"stylesheet\" href=\"https://cdn.jsdelivr.net/npm/@focalisdesk/focalis-icons@1.0.0/dist/css/focalis_thin_rounded.min.css\">",
+        "example": "<i class=\"fi fi-tr-settings\"></i>"
+      },
+      "latest": {
+        "regular-rounded": "https://cdn.jsdelivr.net/npm/@focalisdesk/focalis-icons/dist/css/focalis_regular_rounded.min.css",
+        "thin-rounded": "https://cdn.jsdelivr.net/npm/@focalisdesk/focalis-icons/dist/css/focalis_thin_rounded.min.css"
+      }
+    },
+    "npm": {
+      "package": "@focalisdesk/focalis-icons",
+      "install": "npm install @focalisdesk/focalis-icons"
+    }
+  },
+  "naming": {
+    "conventions": {
+      "svgFiles": "kebab-case",
+      "cssClasses": "kebab-case",
+      "fontFiles": "kebab-case",
+      "cssFiles": "snake_case",
+      "jsonFiles": "kebab-case"
+    },
+    "examples": {
+      "svg": "dashboard-monitor.svg",
+      "cssClass": "fi fi-rr-dashboard-monitor",
+      "fontFile": "focalis-regular-rounded.woff2",
+      "cssFile": "focalis_regular_rounded.css",
+      "dataFile": "focalis-regular-rounded.icons.json"
+    }
+  },
+  "extensibility": {
+    "newStyleTemplate": {
+      "id": "style-id",
+      "name": "Style Name",
+      "description": "Description of the visual characteristics",
+      "cssPrefix": "fi-xx-",
+      "cssFamily": "Focalis Icons Style Name",
+      "cssWeight": "400",
+      "cssStyle": "normal",
+      "baseClass": ".fi",
+      "strokeWidth": "specify",
+      "cornerRadius": "specify",
+      "iconCount": 0,
+      "sortOrder": 3
+    },
+    "steps": [
+      "1. Create SVG directory: src/icons/{style-id}/",
+      "2. Add configuration: font-build/configs/focalis-{style-id}.json",
+      "3. Update package.json build scripts",
+      "4. Add style entry to manifest.json",
+      "5. Run: npm run build:{style-id} or npm run build:all"
+    ]
+  },
+  "compatibility": {
+    "browsers": [
+      "Chrome >= 45",
+      "Firefox >= 40",
+      "Safari >= 12",
+      "Edge >= 14",
+      "Opera >= 32",
+      "iOS Safari >= 10",
+      "Android Browser >= 4.4"
+    ],
+    "formats": {
+      "woff2": "Modern browsers",
+      "woff": "Widely supported",
+      "ttf": "Fallback for older browsers",
+      "eot": "IE8-IE10 compatibility"
+    }
+  },
+  "lastUpdated": "2024-01-15T10:30:00Z",
+  "schemaVersion": "1.0.0"
+}

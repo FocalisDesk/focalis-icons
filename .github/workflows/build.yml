@@ -1,0 +1,193 @@
+name: Build Icon Fonts
+
+on:
+  push:
+    branches: [ main, develop ]
+    paths:
+      - 'src/icons/**'
+      - 'font-build/**'
+      - 'package.json'
+      - 'package-lock.json'
+  pull_request:
+    branches: [ main ]
+    paths:
+      - 'src/icons/**'
+      - 'font-build/**'
+      - 'package.json'
+      - 'package-lock.json'
+  workflow_dispatch:  # Permet de déclencher manuellement
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    
+    strategy:
+      matrix:
+        node-version: [25.3.0]
+    
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v4
+      with:
+        fetch-depth: 0  # Récupère tout l'historique pour les tags
+    
+    - name: Setup Node.js ${{ matrix.node-version }}
+      uses: actions/setup-node@v4
+      with:
+        node-version: ${{ matrix.node-version }}
+        cache: 'npm'
+    
+    - name: Install dependencies
+      run: npm ci
+      
+    - name: Build all icon fonts
+      run: npm run build
+      
+    - name: Verify build output
+      run: |
+        echo "📁 Checking dist/ directory structure..."
+        
+        # Vérifier que le dossier dist existe
+        if [ ! -d "dist" ]; then
+          echo "❌ ERROR: dist/ directory not found"
+          exit 1
+        fi
+        
+        # Vérifier les polices regular-rounded
+        echo "🔍 Checking regular-rounded fonts..."
+        if [ ! -d "dist/fonts/regular-rounded" ]; then
+          echo "❌ ERROR: dist/fonts/regular-rounded/ directory not found"
+          exit 1
+        fi
+        
+        REQUIRED_FONTS_REGULAR=(
+          "focalis-regular-rounded.woff2"
+          "focalis-regular-rounded.woff"
+          "focalis-regular-rounded.ttf"
+          "focalis-regular-rounded.eot"
+        )
+        
+        for font in "${REQUIRED_FONTS_REGULAR[@]}"; do
+          if [ ! -f "dist/fonts/regular-rounded/$font" ]; then
+            echo "❌ ERROR: Regular font file missing: $font"
+            exit 1
+          fi
+        done
+        
+        # Vérifier les polices thin-rounded
+        echo "🔍 Checking thin-rounded fonts..."
+        if [ ! -d "dist/fonts/thin-rounded" ]; then
+          echo "❌ ERROR: dist/fonts/thin-rounded/ directory not found"
+          exit 1
+        fi
+        
+        REQUIRED_FONTS_THIN=(
+          "focalis-thin-rounded.woff2"
+          "focalis-thin-rounded.woff"
+          "focalis-thin-rounded.ttf"
+          "focalis-thin-rounded.eot"
+        )
+        
+        for font in "${REQUIRED_FONTS_THIN[@]}"; do
+          if [ ! -f "dist/fonts/thin-rounded/$font" ]; then
+            echo "❌ ERROR: Thin font file missing: $font"
+            exit 1
+          fi
+        done
+        
+        # Vérifier les fichiers CSS
+        echo "📝 Checking CSS files..."
+        REQUIRED_CSS=(
+          "focalis_regular_rounded.css"
+          "focalis_regular_rounded.min.css"
+          "focalis_thin_rounded.css"
+          "focalis_thin_rounded.min.css"
+        )
+        
+        for css in "${REQUIRED_CSS[@]}"; do
+          if [ ! -f "dist/css/$css" ]; then
+            echo "❌ ERROR: CSS file missing: $css"
+            exit 1
+          fi
+        done
+        
+        # Vérifier les fichiers JSON
+        echo "📊 Checking JSON data files..."
+        REQUIRED_JSON=(
+          "focalis-regular-rounded.icons.json"
+          "focalis-thin-rounded.icons.json"
+        )
+        
+        for json in "${REQUIRED_JSON[@]}"; do
+          if [ ! -f "dist/data/$json" ]; then
+            echo "❌ ERROR: JSON file missing: $json"
+            exit 1
+          fi
+        done
+        
+        # Vérifier les fichiers de démo
+        echo "🌐 Checking demo files..."
+        REQUIRED_DEMO=(
+          "demo-regular-rounded.html"
+          "demo-thin-rounded.html"
+        )
+        
+        for demo in "${REQUIRED_DEMO[@]}"; do
+          if [ ! -f "dist/$demo" ]; then
+            echo "❌ ERROR: Demo file missing: $demo"
+            exit 1
+          fi
+        done
+        
+        # Calculer la taille des fichiers
+        echo "📦 Build summary:"
+        echo "----------------"
+        echo "Font files generated:"
+        find dist/fonts -type f -name "*.woff2" -o -name "*.woff" -o -name "*.ttf" -o -name "*.eot" | xargs ls -lh | awk '{print "  " $5 " " $9}'
+        echo ""
+        echo "CSS files:"
+        ls -lh dist/css/*.css | awk '{print "  " $5 " " $9}'
+        echo ""
+        echo "Data files:"
+        ls -lh dist/data/*.json | awk '{print "  " $5 " " $9}'
+        echo ""
+        
+        # Compter le nombre total d'icônes
+        REGULAR_COUNT=$(jq 'length' dist/data/focalis-regular-rounded.icons.json)
+        THIN_COUNT=$(jq 'length' dist/data/focalis-thin-rounded.icons.json)
+        
+        echo "✅ Build successful!"
+        echo "📊 Icon counts:"
+        echo "  Regular-rounded: $REGULAR_COUNT icons"
+        echo "  Thin-rounded: $THIN_COUNT icons"
+        echo "✅ All files generated correctly"
+        
+    - name: Upload build artifacts
+      if: success()
+      uses: actions/upload-artifact@v4
+      with:
+        name: focalis-icons-build
+        path: |
+          dist/
+          manifest.json
+        retention-days: 7
+    
+    - name: Generate build report
+      if: always()
+      run: |
+        echo "## Build Report" >> $GITHUB_STEP_SUMMARY
+        echo "" >> $GITHUB_STEP_SUMMARY
+        echo "**Status:** ${{ job.status }}" >> $GITHUB_STEP_SUMMARY
+        echo "" >> $GITHUB_STEP_SUMMARY
+        echo "**Node.js Version:** ${{ matrix.node-version }}" >> $GITHUB_STEP_SUMMARY
+        echo "" >> $GITHUB_STEP_SUMMARY
+        
+        if [ -d "dist" ]; then
+          echo "### Generated Files" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "```" >> $GITHUB_STEP_SUMMARY
+          find dist -type f -name "*.woff2" -o -name "*.woff" -o -name "*.ttf" -o -name "*.eot" -o -name "*.css" -o -name "*.json" -o -name "*.html" | sort >> $GITHUB_STEP_SUMMARY
+          echo "```" >> $GITHUB_STEP_SUMMARY
+        else
+          echo "❌ Build failed - no dist directory created" >> $GITHUB_STEP_SUMMARY
+        fi
