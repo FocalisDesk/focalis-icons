@@ -261,11 +261,11 @@
             <div class="meta">
                 <div class="meta-item">
                     <span>Font family:</span>
-                    <strong>"{{cssFontName}}"</strong>
+                    <strong>"{{#if formatOptions.ttf.fontName}}{{formatOptions.ttf.fontName}}{{else}}{{name}}{{/if}}"</strong>
                 </div>
                 <div class="meta-item">
                     <span>Font weight:</span>
-                    <strong>{{cssFontWeight}}</strong>
+                    <strong>{{#if formatOptions.ttf.fontWeight}}{{formatOptions.ttf.fontWeight}}{{else}}400{{/if}}</strong>
                 </div>
                 <div class="meta-item">
                     <span>CSS prefix:</span>

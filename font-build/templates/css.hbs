@@ -5,24 +5,22 @@
  * GitHub: https://github.com/FocalisDesk/focalis-icons
  * 
  * Template Variables Reference:
- * - cssFontName: Font family name for @font-face
- * - cssFontWeight: Font weight (e.g., 400, 300)
- * - cssFontStyle: Font style (e.g., normal, italic)
+ * - name: Font file base name and font family identifier
  * - fontsUrl: Relative URL path to font files
- * - name: Font file base name
  * - version: Version string for cache busting
  * - selector: Base CSS selector (e.g., .fi)
  * - prefix: Icon class prefix (e.g., fi-rr-, fi-tr-)
  * - codepoints: Object mapping icon names to Unicode codepoints
+ * - formatOptions.ttf: TTF-specific options (fontName, fontWeight, fontStyle)
  * 
  * CI/CD Note: Ensure all template variables above are properly defined
  * in the Fantasticon configuration files before building.
  */
 
 @font-face {
-  font-family: "{{cssFontName}}";
-  font-weight: {{cssFontWeight}};
-  font-style: {{cssFontStyle}};
+  font-family: "{{#if formatOptions.ttf.fontName}}{{formatOptions.ttf.fontName}}{{else}}{{name}}{{/if}}";
+  font-weight: {{#if formatOptions.ttf.fontWeight}}{{formatOptions.ttf.fontWeight}}{{else}}400{{/if}};
+  font-style: {{#if formatOptions.ttf.fontStyle}}{{formatOptions.ttf.fontStyle}}{{else}}normal{{/if}};
   font-display: block;
   src: 
     url("{{fontsUrl}}/{{name}}.woff2?v={{version}}") format("woff2"),
@@ -33,9 +31,9 @@
 
 {{selector}} {
   display: inline-block;
-  font-family: "{{cssFontName}}";
-  font-weight: {{cssFontWeight}};
-  font-style: {{cssFontStyle}};
+  font-family: "{{#if formatOptions.ttf.fontName}}{{formatOptions.ttf.fontName}}{{else}}{{name}}{{/if}}";
+  font-weight: {{#if formatOptions.ttf.fontWeight}}{{formatOptions.ttf.fontWeight}}{{else}}400{{/if}};
+  font-style: {{#if formatOptions.ttf.fontStyle}}{{formatOptions.ttf.fontStyle}}{{else}}normal{{/if}};
   font-size: 24px;
   line-height: 1;
   text-rendering: auto;

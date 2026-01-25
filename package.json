@@ -12,8 +12,8 @@
   ],
   "scripts": {
     "clean": "rimraf dist",
-    "build:regular": "fantasticon --config font-build/configs/focalis-regular-rounded.json",
-    "build:thin": "fantasticon --config font-build/configs/focalis-thin-rounded.json",
+    "build:regular": "fantasticon --config font-build/configs/focalis-regular-rounded.js",
+    "build:thin": "fantasticon --config font-build/configs/focalis-thin-rounded.js",
     "build:all": "npm run build:regular && npm run build:thin",
     "build": "npm run clean && npm run build:all",
     "minify:css": "cleancss -O2 --format breakWith=lf -o dist/css/focalis_regular_rounded.min.css dist/css/focalis_regular_rounded.css && cleancss -O2 --format breakWith=lf -o dist/css/focalis_thin_rounded.min.css dist/css/focalis_thin_rounded.css",
