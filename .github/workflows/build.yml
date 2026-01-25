@@ -212,7 +212,8 @@ jobs:
       if: |
         success() && 
         github.event_name == 'push' && 
-        github.actor == 'FocalisDesk'
+        github.actor == 'FocalisDesk' &&
+        (github.ref_name == 'main' || github.ref_name == 'develop')
       run: |
         echo "📝 Committing dist folder to repository..."
         
