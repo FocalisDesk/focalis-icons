@@ -212,7 +212,7 @@ jobs:
       if: |
         success() && 
         github.event_name == 'push' && 
-        (github.actor == 'FocalisDesk' || github.repository_owner == github.actor)
+        github.actor == 'FocalisDesk'
       run: |
         echo "📝 Committing dist folder to repository..."
         
@@ -231,7 +231,7 @@ jobs:
           git commit -m "chore: update dist folder after build [skip ci]"
           
           # Push the changes
-          git push origin HEAD:${GITHUB_REF#refs/heads/}
+          git push origin HEAD:${{ github.ref_name }}
           
           echo "✅ Successfully committed and pushed dist folder"
         fi
