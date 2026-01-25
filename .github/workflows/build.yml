@@ -35,10 +35,12 @@ jobs:
     
     - name: Install dependencies
       run: npm ci
-      
+    
     - name: Build all icon fonts
-      run: npm run build
-      
+      run: |
+        echo "🏗️ Building icon fonts..."
+        npm run build 2>&1
+    
     - name: Verify build output
       run: |
         echo "📁 Checking dist/ directory structure..."
@@ -49,6 +51,9 @@ jobs:
         fi
         
         echo "✅ Build directory exists"
+        echo ""
+        echo "📊 Contents of dist/:"
+        find dist -type f | sort
         
     - name: Upload build artifacts
       if: success()
