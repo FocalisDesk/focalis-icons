@@ -23,7 +23,7 @@
   "build": {
     "tool": "Fantasticon",
     "toolVersion": "4.1.0",
-    "nodeVersion": ">=25.3.0",
+    "nodeVersion": ">=25",
     "templates": {
       "css": "font-build/templates/css.hbs",
       "demo": "font-build/templates/demo.html.hbs"

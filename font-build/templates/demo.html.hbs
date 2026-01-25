@@ -273,14 +273,14 @@
                 </div>
                 <div class="meta-item">
                     <span>Base class:</span>
-                    <div class="badge">{{cssSelector}}</div>
+                    <div class="badge">{{selector}}</div>
                 </div>
             </div>
         </header>
 
         <div class="search-container">
             <div class="search-icon">
-                <i class="{{cssSelector}} {{prefix}}search"></i>
+                <i class="{{selector}} {{prefix}}search"></i>
             </div>
             <input 
                 type="text" 
@@ -311,17 +311,17 @@
             {{#each codepoints}}
             <div class="icon-item" data-name="{{@key}}">
                 <div class="icon-preview">
-                    <i class="{{../cssSelector}} {{../prefix}}{{@key}}"></i>
+                    <i class="{{../selector}} {{../prefix}}{{@key}}"></i>
                 </div>
                 <div class="icon-name">{{@key}}</div>
-                <div class="icon-class">{{../cssSelector}} {{../prefix}}{{@key}}</div>
+                <div class="icon-class">{{../selector}} {{../prefix}}{{@key}}</div>
             </div>
             {{/each}}
         </div>
 
         <footer>
             <p>
-                Made with <i class="{{cssSelector}} {{prefix}}heart"></i> by 
+                Made with <i class="{{selector}} {{prefix}}heart"></i> by 
                 <a href="https://focalisdesk.com" target="_blank">FocalisDesk</a>
             </p>
             <p>
@@ -368,7 +368,7 @@
                     const noResultsDiv = document.createElement('div');
                     noResultsDiv.className = 'no-results';
                     noResultsDiv.innerHTML = `
-                        <i class="{{cssSelector}} {{prefix}}search" style="font-size: 48px; margin-bottom: 16px;"></i>
+                        <i class="{{selector}} {{prefix}}search" style="font-size: 48px; margin-bottom: 16px;"></i>
                         <h3>No icons found</h3>
                         <p>Try searching with different terms</p>
                     `;

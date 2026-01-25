@@ -45,7 +45,7 @@
   "homepage": "https://github.com/FocalisDesk/focalis-icons#readme",
   "engines": {
     "node": ">=25",
-    "npm": ">=11.6.2"
+    "npm": ">=10.0.0"
   },
   "devDependencies": {
     "fantasticon": "4.1.0",
