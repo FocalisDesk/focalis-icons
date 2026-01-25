@@ -10,7 +10,7 @@
   "assetTypes": ["css", "html", "json"],
   "fontsUrl": "../fonts/thin-rounded",
   "normalize": true,
-  "round": 10e12,
+  "round": 1000000000000,
   "descent": 64,
   "selector": ".fi",
   "tag": "i",
