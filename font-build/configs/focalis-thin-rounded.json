@@ -1,9 +1,9 @@
 {
   "name": "focalis-thin-rounded",
+  "fontFamily": "Focalis Icons Thin Rounded",
+  "fontWeight": "300",
+  "fontStyle": "normal",
   "prefix": "fi-tr",
-  "cssFontFamily": "Focalis Icons Thin Rounded",
-  "cssFontWeight": "300",
-  "cssFontStyle": "normal",
   "inputDir": "./src/icons/thin-rounded",
   "outputDir": "./dist/fonts/thin-rounded",
   "fontTypes": ["woff2", "woff", "ttf", "eot"],

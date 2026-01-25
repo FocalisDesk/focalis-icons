@@ -1,9 +1,9 @@
 {
   "name": "focalis-regular-rounded",
+  "fontFamily": "Focalis Icons Regular Rounded",
+  "fontWeight": "400",
+  "fontStyle": "normal",
   "prefix": "fi-rr",
-  "cssFontFamily": "Focalis Icons Regular Rounded",
-  "cssFontWeight": "400",
-  "cssFontStyle": "normal",
   "inputDir": "./src/icons/regular-rounded",
   "outputDir": "./dist/fonts/regular-rounded",
   "fontTypes": ["woff2", "woff", "ttf", "eot"],
