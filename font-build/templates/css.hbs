@@ -1,21 +1,4 @@
-/*!
- * Focalis Icons v{{version}} - {{name}}
- * (c) {{year}} FocalisDesk
- * License: MIT
- * GitHub: https://github.com/FocalisDesk/focalis-icons
- * 
- * Template Variables Reference:
- * - name: Font file base name and font family identifier
- * - fontsUrl: Relative URL path to font files
- * - version: Version string for cache busting
- * - selector: Base CSS selector (e.g., .fi)
- * - prefix: Icon class prefix (e.g., fi-rr-, fi-tr-)
- * - codepoints: Object mapping icon names to Unicode codepoints
- * - formatOptions.ttf: TTF-specific options (fontName, fontWeight, fontStyle)
- * 
- * CI/CD Note: Ensure all template variables above are properly defined
- * in the Fantasticon configuration files before building.
- */
+/*! Focalis Icons v{{version}} - {{name}} | (c) {{year}} FocalisDesk | MIT License | https://github.com/FocalisDesk/focalis-icons */
 
 @font-face {
   font-family: "{{#if formatOptions.ttf.fontName}}{{formatOptions.ttf.fontName}}{{else}}{{name}}{{/if}}";
@@ -44,7 +27,7 @@
 }
 
 {{#each codepoints}}
-.{{../selector}}.{{../prefix}}{{@key}}::before {
+.{{../prefix}}{{@key}}::before {
   content: "\\{{codepoint this}}";
 }
 {{/each}}
