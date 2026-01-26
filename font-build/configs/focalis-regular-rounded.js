@@ -2,7 +2,7 @@ const codepointMappings = require('./regular-rounded-codepoints.json');
 
 module.exports = {
   name: "focalis-regular-rounded",
-  prefix: "fi-rr-",
+  prefix: "fi-rr-",  // Includes trailing dash; will be concatenated with icon name (e.g., "fi-rr-" + "booking" = "fi-rr-booking")
   inputDir: "./src/icons/regular-rounded",
   outputDir: "./dist/fonts/regular-rounded",
   fontTypes: ["woff2", "woff", "ttf", "eot"],

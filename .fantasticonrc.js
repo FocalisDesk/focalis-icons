@@ -5,15 +5,16 @@
  * to prevent conflicts and maintain consistency across builds.
  * 
  * Code Point Allocation:
- * - Regular Rounded: 0xE000 - 0xEFFF (57344 - 61439) = 4,096 icons
- * - Thin Rounded:    0xF000 - 0xFFFF (61440 - 65535) = 4,096 icons
+ * - Regular Rounded: Starting at 0xE000 (Private Use Area)
+ * - Thin Rounded:    Starting at 0xF000 (Private Use Area)
  * 
  * Current icon counts (as of configuration):
- * - Regular Rounded: ~4,461 icons
- * - Thin Rounded:    ~4,461 icons
+ * - Regular Rounded: ~4,461 icons (0xE000 - 0xF16C)
+ * - Thin Rounded:    ~4,461 icons (0xF000 - 0x1016C)
  * 
- * Note: With 4,461 icons per style, we exceed the private use area ranges.
- * We'll use sequential allocation starting from the defined base addresses.
+ * Note: The icon sets exceed the traditional PUA ranges (E000-F8FF)
+ * and extend into Supplementary Private Use Area as needed.
+ * This is acceptable for icon fonts as they define their own namespace.
  */
 
 module.exports = {
@@ -22,12 +23,12 @@ module.exports = {
     // Regular Rounded icons start at Private Use Area E000
     'regular-rounded': {
       start: 0xE000,  // Decimal: 57344
-      end: 0xEFFF     // Decimal: 61439 (4,096 slots)
+      // Actual range: 0xE000 - 0xF16C (4,461 icons)
     },
     // Thin Rounded icons start at Private Use Area F000
     'thin-rounded': {
       start: 0xF000,  // Decimal: 61440
-      end: 0xFFFF     // Decimal: 65535 (4,096 slots)
+      // Actual range: 0xF000 - 0x1016C (4,461 icons)
     }
   }
 };

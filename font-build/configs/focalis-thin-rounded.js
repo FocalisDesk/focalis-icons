@@ -2,7 +2,7 @@ const codepointMappings = require('./thin-rounded-codepoints.json');
 
 module.exports = {
   name: "focalis-thin-rounded",
-  prefix: "fi-tr-",
+  prefix: "fi-tr-",  // Includes trailing dash; will be concatenated with icon name (e.g., "fi-tr-" + "settings" = "fi-tr-settings")
   inputDir: "./src/icons/thin-rounded",
   outputDir: "./dist/fonts/thin-rounded",
   fontTypes: ["woff2", "woff", "ttf", "eot"],
