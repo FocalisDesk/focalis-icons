@@ -45,6 +45,7 @@ With 4,461 icons in two distinct styles, Focalis Icons provides everything you n
 
 - **Two Complete Styles**: Regular-rounded (medium weight) and thin-rounded (light weight)
 - **4,461 Icons Each**: Comprehensive coverage for any use case
+- **Controlled Code Points**: Dedicated Unicode ranges prevent conflicts (Regular: 0xE000+, Thin: 0xF000+)
 - **Web Font Support**: Generated as WOFF2, WOFF, TTF, EOT for maximum compatibility
 - **CSS Classes**: Simple, intuitive class names (fi fi-rr-icon-name)
 - **SVG Source Files**: Access to original SVG files for customization
@@ -57,10 +58,19 @@ With 4,461 icons in two distinct styles, Focalis Icons provides everything you n
 
 ## 🎨 Available Styles
 
-| Style | CSS Prefix | Stroke | Corners | Example | Count |
-|-------|------------|--------|---------|---------|-------|
-| **Regular Rounded** | `fi-rr-` | 1.75px | Rounded (2px) | `<i class="fi fi-rr-booking"></i>` | 4,461 |
-| **Thin Rounded** | `fi-tr-` | 1.25px | Rounded (2px) | `<i class="fi fi-tr-settings"></i>` | 4,461 |
+| Style | CSS Prefix | Stroke | Corners | Code Points | Example | Count |
+|-------|------------|--------|---------|-------------|---------|-------|
+| **Regular Rounded** | `fi-rr-` | 1.75px | Rounded (2px) | 0xE000 - 0xF16C | `<i class="fi fi-rr-booking"></i>` | 4,461 |
+| **Thin Rounded** | `fi-tr-` | 1.25px | Rounded (2px) | 0xF000 - 0x1016C | `<i class="fi fi-tr-settings"></i>` | 4,461 |
+
+### Unicode Code Point Allocation
+
+Each style uses a dedicated range of Unicode Private Use Area code points to prevent conflicts:
+
+- **Regular Rounded**: Starts at `0xE000` (decimal 57344)
+- **Thin Rounded**: Starts at `0xF000` (decimal 61440)
+
+This ensures that icons from different styles can be used together without conflicts.
 
 ---
 
@@ -278,10 +288,17 @@ focalis-icons/
    - Optimize SVG files (remove metadata, use single path when possible)
    - Use kebab-case for filenames (e.g., `user-profile.svg`)
 
-3. Rebuild fonts:
+3. Regenerate code point mappings (if adding many new icons):
+   ```bash
+   npm run generate:codepoints
+   ```
+
+4. Rebuild fonts:
    ```bash
    npm run build:all
    ```
+
+**Note**: Code points are automatically assigned based on alphabetical order. The `generate:codepoints` script creates static mappings to ensure consistency across builds.
 
 ### Adding a New Style
 
@@ -447,10 +464,14 @@ Focalis Icons is released under the [MIT License](LICENSE).
 | Metric | Regular Rounded | Thin Rounded |
 |--------|-----------------|--------------|
 | **Total Icons** | 4,461 | 4,461 |
+| **Code Point Range** | 0xE000 - 0xF16C | 0xF000 - 0x1016C |
 | **Categories** | 45+ | 45+ |
 | **Average File Size (SVG)** | ~1.2KB | ~1.1KB |
-| **CSS File Size (minified)** | ~150KB | ~150KB |
+| **CSS File Size** | 231KB | 231KB |
+| **CSS File Size (minified)** | 195KB (15.5%) | 196KB (15.4%) |
 | **Font File Size (woff2)** | ~120KB | ~115KB |
+
+**Note**: The 15% CSS minification rate is normal for icon fonts with thousands of selectors. Most of the file size comes from the class names themselves, not whitespace.
 
 ---
 
