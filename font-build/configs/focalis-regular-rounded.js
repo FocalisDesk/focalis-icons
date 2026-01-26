@@ -1,6 +1,8 @@
+const codepointMappings = require('./regular-rounded-codepoints.json');
+
 module.exports = {
   name: "focalis-regular-rounded",
-  prefix: "fi-rr",
+  prefix: "fi-rr-",  // Includes trailing dash; will be concatenated with icon name (e.g., "fi-rr-" + "booking" = "fi-rr-booking")
   inputDir: "./src/icons/regular-rounded",
   outputDir: "./dist/fonts/regular-rounded",
   fontTypes: ["woff2", "woff", "ttf", "eot"],
@@ -23,7 +25,13 @@ module.exports = {
     html: "./dist/demo-regular-rounded.html",
     json: "./dist/data/focalis-regular-rounded.icons.json"
   },
-  codepoints: {},
+  // Code points starting at 0xE000 (Private Use Area)
+  // Using pre-generated mappings for consistency across builds
+  codepoints: codepointMappings,
+  getIconId: ({ basename }) => {
+    // Normalize icon name to match codepoint mapping
+    return basename.toLowerCase().replace(/[^a-z0-9-]/g, '-');
+  },
   formatOptions: {
     json: {
       indent: 2

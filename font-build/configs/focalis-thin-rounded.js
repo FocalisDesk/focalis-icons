@@ -1,6 +1,8 @@
+const codepointMappings = require('./thin-rounded-codepoints.json');
+
 module.exports = {
   name: "focalis-thin-rounded",
-  prefix: "fi-tr",
+  prefix: "fi-tr-",  // Includes trailing dash; will be concatenated with icon name (e.g., "fi-tr-" + "settings" = "fi-tr-settings")
   inputDir: "./src/icons/thin-rounded",
   outputDir: "./dist/fonts/thin-rounded",
   fontTypes: ["woff2", "woff", "ttf", "eot"],
@@ -23,7 +25,13 @@ module.exports = {
     html: "./dist/demo-thin-rounded.html",
     json: "./dist/data/focalis-thin-rounded.icons.json"
   },
-  codepoints: {},
+  // Code points starting at 0xF000 (Private Use Area)
+  // Using pre-generated mappings for consistency across builds
+  codepoints: codepointMappings,
+  getIconId: ({ basename }) => {
+    // Normalize icon name to match codepoint mapping
+    return basename.toLowerCase().replace(/[^a-z0-9-]/g, '-');
+  },
   formatOptions: {
     json: {
       indent: 2
